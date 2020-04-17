@@ -1,0 +1,21 @@
+{
+  "name": "ulyzses-discord-bot",
+  "version": "1.0.0",
+  "description": "Ulyzses' personal Discord bot",
+  "main": "index.js",
+  "dependencies": {
+    "discord.js": "^12.1.1",
+    "giphy-js-sdk-core": "^1.0.6"
+  },
+  "devDependencies": {
+    "dotenv": "^8.2.0"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js",
+    "start-dev": "node -r dotenv/config index.js",
+    "nodemon-start-dev": "npx nodemon -r dotenv/config index.js"
+  },
+  "author": "Ulyzses",
+  "license": "ISC"
+}
