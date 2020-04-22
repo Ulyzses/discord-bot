@@ -6,6 +6,7 @@ module.exports = {
   args: 0,
   usage: '(command)',
   guildOnly: false,
+  aliases: ['h', 'command', 'commands', 'info'],
   cooldown: 3,
   execute(message, args) {
     let data = [];
@@ -26,13 +27,23 @@ module.exports = {
         })
     } else {
       const commandName = args[0].toLowerCase();
-      const command = commands.get(commandName);
+      const command = message.client.commands.get(commandName)
+        || message.client.commands.find(cmd => cmd.aliases.includes(commandName));
 
       if ( !command ) {
         return message.reply('send an actual command <:angry:700593630934597674>');
       }
 
+      let aliases;
+
+      if ( command.aliases ) {
+        aliases = command.aliases.map(alias => `\`${alias}\``).join(', ');
+      } else {
+        aliases = "none";
+      }
+
       data.push(`**Command:** \`${commandName}\``);
+      data.push(`**Aliases:** ${aliases}`);
       data.push(`**Description:** ${command.description}`);
       data.push(`**Usage:** \`${prefix}${commandName} ${command.usage}\``);
 

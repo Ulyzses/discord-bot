@@ -30,9 +30,11 @@ discordClient.on('message', message => {
   const args = message.content.slice(prefix.length).split(/ +/);
   const commandName = args.shift().toLowerCase();
 
-  if ( !discordClient.commands.has(commandName) ) return;
+  // Look for the command or alias in the commands collection
+  const command = discordClient.commands.get(commandName)
+    || discordClient.commands.find(cmd => cmd.aliases.includes(commandName));
 
-  const command = discordClient.commands.get(commandName);
+  if ( !command ) return;
 
   if ( command.guildOnly && message.channel.type == 'dm' ) {
     return message.reply("Execute this command in servers ya coward");

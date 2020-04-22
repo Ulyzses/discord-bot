@@ -8,6 +8,7 @@ module.exports = {
   args: 0,
   usage: "(keyword)",
   guildOnly: false,
+  aliases: ['g'],
   cooldown: 3,
   async execute(message, args) {
     try {
