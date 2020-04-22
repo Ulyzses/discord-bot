@@ -12,3 +12,11 @@ Publicly visible changes to this bot will be documented in this file. This does 
 
 ### Changed
  - Status messages for `>gif` commands are now deleted after the GIF has been sent
+
+## 1.1.0
+
+### Added
+ - Aliases for commands
+ - `waifu` command
+ - `husbando` command
+ - `dicc` command

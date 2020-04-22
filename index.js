@@ -90,6 +90,20 @@ global.log = (message, debug = false) => {
     .catch(error => alertError(error, message));
 }
 
+global.isUser = (user) => {
+  if ( user.startsWith('<@') && user.endsWith('>') ) {
+    user = user.slice(2, -1);
+
+    if ( user.startsWith('!') ) {
+      user = user.slice(1);
+    }
+
+    return discordClient.users.cache.get(user);
+  }
+
+  return false;
+}
+
 function getSource(message) {
   return (message.channel.type == 'dm') ? `DM: ${message.channel.recipient.tag}` : `Guild: ${message.guild.name}#${message.channel.name} (${message.author.username})`;Guild
 }
