@@ -7,6 +7,7 @@ module.exports = {
   description: 'Sends a random GIF of the given keyword. If keyword is ommitted or is "random", sends a random GIF instead. Powered by Giphy.',
   args: 0,
   usage: "(keyword)",
+  secret: false,
   guildOnly: false,
   aliases: ['g'],
   cooldown: 3,

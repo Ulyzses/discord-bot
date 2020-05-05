@@ -3,6 +3,7 @@ module.exports = {
   description: 'Determines the length of your dicc',
   args: 0,
   usage: '(user)',
+  secret: true,
   guildOnly: false,
   aliases: ['d', 'dick', 'pp'],
   cooldown: 3,

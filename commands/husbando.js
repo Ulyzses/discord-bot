@@ -3,6 +3,7 @@ module.exports = {
   description: 'Determines how much of a husbando you are',
   args: 0,
   usage: '(user)',
+  secret: true,
   guildOnly: false,
   aliases: ['h'],
   cooldown: 3,

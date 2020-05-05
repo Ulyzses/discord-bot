@@ -5,6 +5,7 @@ module.exports = {
   description: 'Lists all of my commands or information about a specific command',
   args: 0,
   usage: '(command)',
+  secret: false,
   guildOnly: false,
   aliases: ['h', 'command', 'commands', 'info'],
   cooldown: 3,
@@ -13,8 +14,14 @@ module.exports = {
     let { commands } = message.client;
 
     if ( !args.length ) {
-      data.push('Here\'s a list of all my commands!');
-      data.push(commands.map(command => `\`${command.name}\``).join(', '));
+      data.push('Here\'s a list of my commands!');
+
+      data.push(commands
+        .filter(item => !item.secret)
+        .map(command => `\`${command.name}\``)
+        .join(', ')
+      );
+
       data.push(`You can send \`${prefix}help [command]\` to get info on a specific command`);
 
       message.author.send(data, { split: true })

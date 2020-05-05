@@ -3,6 +3,7 @@ module.exports = {
   description: 'Determines how much of a waifu you are',
   args: 0,
   usage: '(user)',
+  secret: true,
   guildOnly: false,
   aliases: ['w'],
   cooldown: 3,
