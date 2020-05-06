@@ -20,3 +20,9 @@ Publicly visible changes to this bot will be documented in this file. This does 
  - `waifu` command
  - `husbando` command
  - `dicc` command
+
+## 1.2.0
+
+### Added
+ - `secret` attribute
+ - `role` command
