@@ -49,7 +49,7 @@ module.exports = {
         aliases = "none";
       }
 
-      data.push(`**Command:** \`${commandName}\``);
+      data.push(`**Command:** \`${command.name}\``);
       data.push(`**Aliases:** ${aliases}`);
       data.push(`**Description:** ${command.description}`);
       data.push(`**Usage:** \`${prefix}${commandName} ${command.usage}\``);
