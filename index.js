@@ -58,6 +58,25 @@ discordClient.on('message', message => {
   }
 });
 
+// Welcome
+discordClient.on('guildMemberAdd', guildMember => {
+  const guild = guildMember.guild;
+
+  if ( !guild.available ) return log("Guild not available", true)
+
+  // Attempt to get original channel
+  if ( guild.channels.has(guild.id) ) {
+    const defaultChannelID = guild.channels.get(guild.id);
+    log("Found original channel", true);
+  } else {
+    // find a channel that starts with general or welcome
+    const defaultChannelID = guild.channels.cache.find(channel => 
+      channel.startsWith('general') || channel.startsWith('welcome')
+    );
+    log("Found channel starting with original or general")
+  }
+});
+
 /* UTILITY FUNCTIONS */
 global.alertError = (error, message) => {
   console.error(error);
