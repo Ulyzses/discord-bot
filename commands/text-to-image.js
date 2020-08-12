@@ -12,23 +12,20 @@ module.exports = {
   cooldown: 10,
   execute(message, args) {
     let text;
+    let match = message.content.match(/"([^"]+)"/);
 
-    if ( args.length > 1 ) {
-      let match = message.content.match(/"([^"]+)"/);
-
-      if ( match == null ) {
-        return message.reply("Invalid parameters. Enclose in quotation marks `\"\"` if text is more than one word.");
+    if ( match == null ) {
+      if ( args.length > 1 ) {
+        return message.reply("Invalid parameters. Enclose message in quotation marks `\"\"`.");
       } else {
-        text = match[1]
+        text = args[0];
       }
     } else {
-      text = args[0];
+      text = match[1];
     }
 
     try {
       /* FROM TEXT2IMG */
-      const width = 9;
-      const height = 3;
       const rHeight = 1080;
       const rWidth = 1920;
 
@@ -81,7 +78,7 @@ module.exports = {
       fs.writeFileSync(`temp/${fileName}.png`, buffer);
 
       /* Send image */
-      message.channel.send('', {files: [`temp/${fileName}.png`]});
+      message.channel.send(text, {files: [`temp/${fileName}.png`]});
 
     } catch(error) {
       alertError(error, message);
