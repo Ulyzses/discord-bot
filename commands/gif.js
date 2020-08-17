@@ -11,30 +11,31 @@ module.exports = {
   guildOnly: false,
   aliases: ['g'],
   cooldown: 3,
-  async execute(message, args) {
+  async execute(message, args, channel) {
+    let destination = channel || message.channel;
     try {
       if ( !args[0] || args[0].toLowerCase() == "random" ) {
         // Send a random GIF
 
-        let botMessage = await message.channel.send('Looking for random GIFs...');
+        let botMessage = await destination.send('Looking for random GIFs...');
         
         giphyClient.random('gifs', {})
           .then(response => {
             botMessage.delete();
-            message.channel.send('', {files: [response.data.images.original.gif_url]});
+            destination.send('', {files: [response.data.images.original.gif_url]});
           })
           .catch(error => alertError(error, message));
       } else {
         // Sends a GIF of the keyword
         let keyword = args[0];
 
-        let botMessage = await message.channel.send(`Looking for GIFS of ${keyword}...`);
+        let botMessage = await destination.send(`Looking for GIFS of ${keyword}...`);
 
         giphyClient.search('gifs', { q: keyword })
           .then(response => {
             let random = Math.floor(Math.random() * response.data.length);
             botMessage.delete();
-            message.channel.send('', {files: [response.data[random].images.fixed_height.url]});
+            destination.send('', {files: [response.data[random].images.fixed_height.url]});
           })
           .catch(error => alertError(error, message));
       }

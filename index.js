@@ -64,17 +64,13 @@ discordClient.on('guildMemberAdd', guildMember => {
 
   if ( !guild.available ) return log("Guild not available", true)
 
-  // Attempt to get original channel
-  if ( guild.channels.has(guild.id) ) {
-    const defaultChannelID = guild.channels.get(guild.id);
-    log("Found original channel", true);
-  } else {
-    // find a channel that starts with general or welcome
-    const defaultChannelID = guild.channels.cache.find(channel => 
-      channel.startsWith('general') || channel.startsWith('welcome')
-    );
-    log("Found channel starting with original or general")
-  }
+  const defaultChannel = guild.channels.cache.find(channel => 
+    ( channel.name.startsWith('general') || channel.name.startsWith('welcome') ) && channel.type == 'text'
+  );
+
+  discordClient.commands.get('gif').execute(null, ['welcome'], defaultChannel);
+
+  log("Found channel starting with general or welcome", true);
 });
 
 /* UTILITY FUNCTIONS */
@@ -124,5 +120,5 @@ global.isUser = (user) => {
 }
 
 function getSource(message) {
-  return (message.channel.type == 'dm') ? `DM: ${message.channel.recipient.tag}` : `Guild: ${message.guild.name}#${message.channel.name} (${message.author.username})`;Guild
+  return (message.channel.type == 'dm') ? `DM: ${message.channel.recipient.tag}` : `Guild: ${message.guild.name}#${message.channel.name} (${message.author.username})`;
 }
