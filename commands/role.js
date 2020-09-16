@@ -9,14 +9,14 @@ module.exports = {
   cooldown: 3,
   execute(message, args) {
     try {
-      if ( args.length == 1 ) {
+      if ( args.length > 1 ) {
         message.member.roles.add(
           message.guild.roles.cache.find(role => role.name.toLowerCase() == args[0].toLowerCase())
         ).catch(alertError);
 
         message.reply("role set!");
-      } else {
-
+      } else if ( args.length == 0 ) {
+        message.reply("Insufficient parameters");
       }
     } catch(error) {
       alertError(error);
