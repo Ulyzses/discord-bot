@@ -11,7 +11,7 @@ module.exports = {
   guildOnly: false,
   aliases: ['g'],
   cooldown: 3,
-  async execute(message, args, channel) {
+  async execute(message, args, channel, user) {
     let destination = channel || message.channel;
     try {
       if ( !args[0] || args[0].toLowerCase() == "random" ) {
@@ -35,7 +35,7 @@ module.exports = {
           .then(response => {
             let random = Math.floor(Math.random() * response.data.length);
             botMessage.delete();
-            destination.send('', {files: [response.data[random].images.fixed_height.url]});
+            destination.send(user ? `<@${user}>` : '', {files: [response.data[random].images.fixed_height.url]});
           })
           .catch(error => alertError(error, message));
       }

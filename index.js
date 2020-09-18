@@ -61,6 +61,7 @@ discordClient.on('message', message => {
 // Welcome
 discordClient.on('guildMemberAdd', guildMember => {
   const guild = guildMember.guild;
+  const userId = guildMember.user.id;
 
   if ( !guild.available ) return log("Guild not available", true)
 
@@ -68,9 +69,7 @@ discordClient.on('guildMemberAdd', guildMember => {
     ( channel.name.startsWith('general') || channel.name.startsWith('welcome') ) && channel.type == 'text'
   );
 
-  discordClient.commands.get('gif').execute(null, ['welcome'], defaultChannel);
-
-  log("Found channel starting with general or welcome", true);
+  discordClient.commands.get('gif').execute(null, ['welcome'], defaultChannel, userId);
 });
 
 /* UTILITY FUNCTIONS */
