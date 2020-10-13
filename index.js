@@ -25,7 +25,20 @@ discordClient.once('ready', () => {
 });
 
 discordClient.on('message', message => {
-  if (!message.content.startsWith(prefix) || message.author.bot) return;
+  if ( message.author.bot ) return;
+
+  if ( message.content.match(/\$\$(.*?)\$\$/g) ) {
+    let regex = message.content.match(/\$\$(.*?)\$\$/g);
+    log(regex, true);
+
+    regex.forEach(item => {
+      item.replace(/\\/g, '%5C');
+      item.replace(/\s*/g, '%20');
+      message.channel.send("https://latex.codecogs.com/png.latex?%5Cdpi%7B300%7D%20%5Cbg_white%20%5Csmall%20" + item.slice(2,-2));
+    })
+  }
+
+  if (!message.content.startsWith(prefix)) return;
 
   const args = message.content.slice(prefix.length).split(/ +/);
   const commandName = args.shift().toLowerCase();
